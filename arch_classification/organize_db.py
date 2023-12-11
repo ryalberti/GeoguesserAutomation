@@ -4,24 +4,25 @@ import csv
 import os 
 
 # set directories 
-dir_path = os.getcwd() # get current directory 
-db_path = dir_path+"\\database"
-train_path = db_path + "\\train"
+dir_path = os.getcwd() # get current directory , \GeoguesserAutomation\arch_classification
+db_path = dir_path+"\\database" # \GeoguesserAutomation\arch_classification\database
+train_path = db_path + "\\train" # \GeoguesserAutomation\arch_classification\database\train
 test_path = dir_path+"\\test"
+csv_path = db_path + "arch_labels.csv"
 
 # First, label the images
-labels_header = os.listdir(train_path)
+labels_header = os.listdir(train_path) # [aframe, barndominium, etc]
 
 # find all the labels 
 rows=[]
-for label in labels_header: # each folder in the database
+for label in labels_header: # aframe
     label_folder = os.listdir(train_path+"\\" + label) # "C:\dir_path\database\train\aframe"
-    for file in label_folder: # each file in each folder in the database 
-        rows.append([file,label]) # ["file1.jpg" , "aframe"]
+    for file in label_folder: # 80517-b600.jpg 
+        rows.append([file,label]) # ["80517-b600.jpg" , "aframe"]
         os.rename(train_path + "\\" + label+"\\" + file , train_path+"\\"+file) # move the logged file into the train folder 
 
 # write all the labels into a csv 
-with open ("arch_labels.csv", newline='') as csvfile:
+with open (csv_path, 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(["Filenames","labels"])
     csvwriter.writerow(rows)
