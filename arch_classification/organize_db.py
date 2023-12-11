@@ -7,7 +7,7 @@ import os
 dir_path = os.getcwd() # get current directory , \GeoguesserAutomation\arch_classification
 db_path = dir_path+"\\database" # \GeoguesserAutomation\arch_classification\database
 train_path = db_path + "\\train" # \GeoguesserAutomation\arch_classification\database\train
-test_path = dir_path+"\\test"
+test_path = db_path+"\\test"
 csv_train_path = db_path + "\\arch_train_labels.csv"
 csv_test_path = db_path + "\\arch_test_labels.csv"
 
