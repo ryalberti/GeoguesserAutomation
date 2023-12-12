@@ -17,13 +17,13 @@ def clean_input(input):
 
 def weighting(header):
     # Header = license plate, language, arch
-    ret =[] # list of tuples 
+    ret ={} # dictionary 
     while True:
         tag = input("Enter the " + header + " and the weight separated by a comma. When done, press ENTER. \nEX. city,4\n")
         if not tag:
             break
         tag = clean_input(tag)
-        ret.append((tag[0],tag[1]))
+        ret[tag[0]]=tag[1] # ret = {"aframe": 1}
     return ret
 
 while running:
@@ -46,9 +46,3 @@ while running:
     with open(location_name+".pkl", 'wb') as file:
         pickle.dump(newLoc,file)
 
-    # Combine tags from all sources
-    combined_tags = (
-        location_license_plate.tags +
-        location_language.tags +
-        location_architecture.tags
-    )

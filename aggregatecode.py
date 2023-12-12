@@ -13,21 +13,34 @@ class Location:
         # tags are stored as tuples: (name,points)
         # values should be 1-5 points. 5 being the highest 
         self.name = name
-        self.language=language # this is a list
-        self.license_plate= license_plate # also a list
-        self.architecture = architecture # also a list 
-        self.tags = [] # this gets filled in on input bc it depends on the weight values 
+        self.language=language # this is a dictionary {"english": 5, "spanish": 4}
+        self.license_plate= license_plate # also a dictionary
+        self.architecture = architecture # also a dictionary 
+        self.tags = {} # this dictionary gets filled in on input bc it depends on the weight values 
 
     def add_tag(self, type, tag, weight=1):
         # architecture, city, 4 
-        self.tags.append((tag, weight))
+        self.tags[tag]=weight
         if (type == "language"):
-            self.lanaguge.append(tag)
+            self.lanaguge[tag]=weight
         elif (type=="license_plate"):
-            self.license_plate.append(tag)
+            self.license_plate[tag]=weight
         else: 
             # assumed arch
-            self.architecture.append(tag)
+            self.architecture[tag]=weight
+
+    def get_language(self):
+        return self.language
+    
+    def get_license(self):
+        return self.license_plate
+    
+    def get_arch(self):
+        return self.architecture
+    
+    def get_tags(self):
+        return self.tags
+
 
 #####################################
 # define functions 
@@ -39,10 +52,22 @@ def prioritize_tags(location):
 
 
 
-def process_tags(allLoc,license_output,language_ouput,arch_output):
+def process_tags(allLoc,foundChara):
+    # returns best match 
+    # foundChara = license_output, language_ouput, arch_output
     possible = "Unknown location"
+    bestPoints=0
     for thisLoc in allLoc:
-        print("a")
+        locPoints=0
+        locTags = thisLoc.get_tags()
+        for header in foundChara:
+            for thisChara in header:
+                if (thisChara in locTags):
+                    locPoints += locTags[thisChara]
+        if (locPoints>=bestPoints):
+            possible = thisLoc
+            bestPoints = locPoints
+        
     # TODO: maybe just loop thru a few pre determined objects 
     return possible
 

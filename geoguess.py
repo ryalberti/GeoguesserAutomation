@@ -64,7 +64,7 @@ def main():
     language_ouput = process_language(input)
     arch_output = process_architecture(input)
 
-    print(agc.process_tags(allLoc,license_output,language_ouput,arch_output))
+    print(agc.process_tags(allLoc,(license_output,language_ouput,arch_output)))
 
 
 
