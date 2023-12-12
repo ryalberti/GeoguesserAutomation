@@ -18,7 +18,6 @@ tokyo.add_tag("Japanese Text", 1)
 paris.add_tag("City", 2)
 paris.add_tag("French Language", 2)
 paris.add_tag("French Architecture", 3)
-paris.add_tag("Eiffel Tower", 4)
 
 # Function to prioritize tags based on weight
 def prioritize_tags(location):
