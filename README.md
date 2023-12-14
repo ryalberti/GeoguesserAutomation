@@ -33,11 +33,11 @@ pip install google-cloud-vision
 ```
 cd arch_classification
 ```
-4. Place your API key into the file.
+4. Place your API key into the file. Paste in your key, save, quit.
 ```
 notepad ee462finalproject-3e96cda81771.json
 ```
-Paste in your key, save, quit.
+
 5. Run the script
 ```
 python geoguess.py test_images/test1.png
