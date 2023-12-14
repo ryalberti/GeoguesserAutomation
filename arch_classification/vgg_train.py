@@ -3,33 +3,37 @@ import matplotlib
 matplotlib.use("Agg")
 
 # import the necessary packages
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import img_to_array
+from keras.preprocessing.image import ImageDataGenerator
+from keras.optimizers import Adam
+from keras.preprocessing.image import img_to_array
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
-from pyimagesearch.smallervggnet import SmallerVGGNet
+from smallervggnet import SmallerVGGNet
 import matplotlib.pyplot as plt
 from imutils import paths
 import tensorflow as tf
 import numpy as np
-import argparse
+# import argparse
 import random
 import pickle
 import cv2
 import os
+import csv 
 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-d", "--dataset", required=True,
-	help="path to input dataset (i.e., directory of images)")
-ap.add_argument("-m", "--model", required=True,
-	help="path to output model")
-ap.add_argument("-l", "--labelbin", required=True,
-	help="path to output label binarizer")
-ap.add_argument("-p", "--plot", type=str, default="plot.png",
-	help="path to output accuracy/loss plot")
-args = vars(ap.parse_args())
+# set directories 
+dir_path = os.getcwd() # get current directory , \GeoguesserAutomation\arch_classification
+db_path = dir_path+"\\database\\" # \GeoguesserAutomation\arch_classification\database
+train_path = db_path + "train\\" # \GeoguesserAutomation\arch_classification\database\train
+valid_path = db_path+"valid\\"
+csv_train_path = db_path + "arch_train_labels.csv"
+csv_valid_path = db_path + "arch_valid_labels.csv"
+model_name = "arch_model.pkl"
+
+# removing argparse because it's always going to be the same parameters anyway 
+args = {"dataset":train_path,
+		"model":model_name,
+		"labelbin":"mlb.pickle",
+		"plot":"plot.png"}
 
 # initialize the number of epochs to train for, initial learning rate,
 # batch size, and image dimensions
@@ -44,6 +48,7 @@ tf.compat.v1.disable_eager_execution()
 # grab the image paths and randomly shuffle them
 print("[INFO] loading images...")
 imagePaths = sorted(list(paths.list_images(args["dataset"])))
+
 random.seed(42)
 random.shuffle(imagePaths)
 
