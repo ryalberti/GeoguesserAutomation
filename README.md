@@ -37,22 +37,20 @@ conda deactivate
 conda create -n archenv python=3.7 
 conda activate archenv
 conda install -c anaconda pip
-pip install keras
-Pip install pandas
-pip uninstall keras-preprocessing
-pip install git+https://github.com/keras-team/keras-preprocessing.git
+pip install imutils 
+pip install matplotlib
+pip install opencv-python
+pip install scikit-learn
 pip install tensorflow
-pip install pillow
-python -m pip install scipy
-pip install google-cloud-vision
 ```
 3. Train the architecture model.
 ```
 cd arch_classification
+python vgg_Train.py 
 ```
 4. Place your API key into the file. Paste in your key, save, quit.
 ```
-notepad ee462finalproject-3e96cda81771.json
+notepad geoguesserautomation-5264cd87ce70.json
 ```
 
 5. Run the script
