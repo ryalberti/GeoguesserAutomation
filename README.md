@@ -9,7 +9,11 @@ Runs on python 3.7.16
 git clone git@github.com:ryalberti/GeoguesserAutomation.git
 conda create -n licenseenv python=3.11.7
 ```
-2. The second is for training the architecture model.
+2. Train the license plate detector
+```
+cd GeoguesserAutomation
+```
+3. The second is for training the architecture model.
 
 ```
 conda deactivate
@@ -24,5 +28,17 @@ pip install tensorflow
 pip install pillow
 python -m pip install scipy
 pip install google-cloud-vision
+```
+3. Train the architecture model.
+```
 cd arch_classification
+```
+4. Place your API key into the file.
+```
+notepad ee462finalproject-3e96cda81771.json
+```
+Paste in your key, save, quit.
+5. Run the script
+```
+python geoguess.py test_images/test1.png
 ```
