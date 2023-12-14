@@ -6,12 +6,16 @@
 import os 
 import argparse
 import aggregatecode as agc
+import language_detection
 
 #####################################
 # define locations and var names 
 
 dir_path = os.getcwd()
 loc_path = dir_path + "\\locations"
+language_path = dir_path+"\\language_detection"
+json_path = language_path + "ee462finalproject-3e96cda81771.json"
+
 
 #####################################
 # define functions 
@@ -35,12 +39,12 @@ def process_license(input):
     print("License plate function")
     return ret
 
-def process_language(input):
-    # will return the lanaguges in the picture
-    # returns list of lanaguges 
-    print("License plates")
+def process_language(image_path):
+    print("Language detection",json_path)
+    detected_language = language_detection.detect_language(image_path)
+    print(f"Detected language: {detected_language}")
     ret = []
-    return ret 
+    return detected_language 
 
 def process_architecture(input):
     # will call architecture functions 

@@ -3,8 +3,6 @@
 #####################################
 # imports 
 import os 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/danaj/Desktop/EE462finalproject/ee462finalproject-3e96cda81771.json"
-from google.cloud import vision
 import pickle
 # import location_class
 
@@ -53,35 +51,6 @@ def loadLocs(loc_path):
 
     return allLoc
 
-################################
-# language detection and google api key insertion
-def detect_language(image_path):
-    client = vision.ImageAnnotatorClient()
-
-    with open(image_path, 'rb') as image_file:
-        content = image_file.read()
-
-    image = vision.Image(content=content)
-
-    response = client.text_detection(image=image)
-    texts = response.text_annotations
-
-    # Assuming the first detected text contains the language information
-    if texts:
-        detected_text = texts[0].description
-        # You can use a language detection library here or implement your own logic
-        # For simplicity, let's assume that the first word in the detected text is the language
-        detected_language = detected_text.split()[0]
-        return detected_language
-    else:
-        return "Unknown"
-
-######################################################
-# Usage with photo of stevens from my computer
-
-image_path = "C:/Users/danaj/Desktop/EE462finalproject/AERIAL_STEVENS_INSTITUTE_40-crop2.jpg"
-detected_language = detect_language(image_path)
-print(f"Detected language: {detected_language}")
 
 ############################################################
 # Everything below this are things I don't think we need but I didn't think we should delete yet 
