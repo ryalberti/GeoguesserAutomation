@@ -1,6 +1,6 @@
 import pickle
 import os
-import aggregatecode as agc
+import location_class
 
 dir_path = os.getcwd()
 loc_path = dir_path + "\\locations"
@@ -42,7 +42,7 @@ while running:
     # location_language = clean_input(language)
     # location_architecture = clean_input(architecture)
 
-    newLoc = agc.Location(location_name, location_language, location_license_plate,location_architecture)
+    newLoc = location_class.Location(location_name, location_language, location_license_plate,location_architecture)
     with open(location_name+".pkl", 'wb') as file:
         pickle.dump(newLoc,file)
 

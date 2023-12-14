@@ -6,43 +6,7 @@ import os
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/danaj/Desktop/EE462finalproject/ee462finalproject-3e96cda81771.json"
 from google.cloud import vision
 import pickle
-
-#####################################
-# define Location class
-
-class Location:
-    def __init__(self, name,language,license_plate,architecture):
-        # tags are stored as tuples: (name,points)
-        # values should be 1-5 points. 5 being the highest 
-        self.name = name
-        self.language=language # this is a dictionary {"english": 5, "spanish": 4}
-        self.license_plate= license_plate # also a dictionary
-        self.architecture = architecture # also a dictionary 
-        self.tags = {} # this dictionary gets filled in on input bc it depends on the weight values 
-
-    def add_tag(self, type, tag, weight=1):
-        # architecture, city, 4 
-        self.tags[tag]=weight
-        if (type == "language"):
-            self.language[tag]=weight
-        elif (type=="license_plate"):
-            self.license_plate[tag]=weight
-        else: 
-            # assumed arch
-            self.architecture[tag]=weight
-
-    def get_language(self):
-        return self.language
-    
-    def get_license(self):
-        return self.license_plate
-    
-    def get_arch(self):
-        return self.architecture
-    
-    def get_tags(self):
-        return self.tags
-
+# import location_class
 
 #####################################
 # define functions 
