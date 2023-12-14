@@ -28,4 +28,6 @@ pip install pillow
 
 python -m pip install scipy
 
+pip install google-cloud-vision
+
 ```
