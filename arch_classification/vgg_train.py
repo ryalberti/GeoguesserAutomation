@@ -8,6 +8,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from keras.utils.image_utils import img_to_array
 from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from smallervggnet import SmallerVGGNet
 import matplotlib.pyplot as plt
@@ -76,10 +77,10 @@ print("[INFO] data matrix: {} images ({:.2f}MB)".format(
 # binarize the labels using scikit-learn's special multi-label
 # binarizer implementation
 print("[INFO] class labels:")
-mlb = MultiLabelBinarizer()
+mlb = LabelBinarizer()
 print(labels.shape)
 print(data.shape)
-labels = mlb.fit_transform([labels]) # https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html 
+labels = mlb.fit_transform(labels) # https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html 
 
 # https://stackoverflow.com/questions/44671194/inconsistent-shape-error-multilabelbinarizer-on-y-test-sklearn-multi-label-clas 
 # add that somewhere
@@ -90,10 +91,7 @@ for (i, label) in enumerate(mlb.classes_):
 	
 # partition the data into training and testing splits using 80% of
 # the data for training and the remaining 20% for testing
-print("data")
-print(data.shape)
-print("labels")
-print(labels.shape)
+
 (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.2, random_state=42)
 
 # construct the image generator for data augmentation
