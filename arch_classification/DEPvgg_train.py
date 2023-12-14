@@ -1,5 +1,4 @@
-# https://pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/#download-the-code
-# set the matplotlib backend so figures can be saved in the background
+# set the matplotlib backend so figures can be saved in the background 
 import matplotlib
 matplotlib.use("Agg")
 
@@ -29,7 +28,8 @@ csv_valid_path = db_path + "arch_valid_labels.csv"
 model_name = "arch_model.pkl"
 
 # removing argparse because it's always going to be the same parameters anyway 
-args = {"dataset":train_path,
+args = {"datasetTRAIN":train_path,
+		"datasetVALID":valid_path,
 		"model":model_name,
 		"labelbin":"mlb.pickle",
 		"plot":"plot.png"}
@@ -44,9 +44,14 @@ IMAGE_DIMS = (96, 96, 3)
 # disable eager execution
 tf.compat.v1.disable_eager_execution()
 
+
+###################################################################################
+# Fill in for training data 
+
 # grab the image paths and randomly shuffle them
 print("[INFO] loading images...")
-imagePaths = sorted(list(paths.list_images(args["dataset"])))
+imagePaths = sorted(list(paths.list_images(args["datasetTRAIN"])))
+
 random.seed(42)
 random.shuffle(imagePaths)
 
@@ -61,12 +66,12 @@ for imagePath in imagePaths:
 	image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
 	image = img_to_array(image)
 	data.append(image)
-	
+
 	# extract set of class labels from the image path and update the
 	# labels list
-	l = label = imagePath.split(os.path.sep)[-2]
+	l = label = imagePath.split(os.path.sep)[-2] # remove the split 
 	labels.append(l)
-	
+
 # scale the raw pixel intensities to the range [0, 1]
 data = np.array(data, dtype="float") / 255.0
 labels = np.array(labels)
@@ -77,24 +82,16 @@ print("[INFO] data matrix: {} images ({:.2f}MB)".format(
 # binarizer implementation
 print("[INFO] class labels:")
 mlb = MultiLabelBinarizer()
-print(labels.shape)
-print(data.shape)
 labels = mlb.fit_transform([labels]) # https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html 
-
-# https://stackoverflow.com/questions/44671194/inconsistent-shape-error-multilabelbinarizer-on-y-test-sklearn-multi-label-clas 
-# add that somewhere
 
 # loop over each of the possible class labels and show them
 for (i, label) in enumerate(mlb.classes_):
 	print("{}. {}".format(i + 1, label))
-	
-# partition the data into training and testing splits using 80% of
-# the data for training and the remaining 20% for testing
-print("data")
-print(data.shape)
-print("labels")
-print(labels.shape)
+
 (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.2, random_state=42)
+
+###################################################################################
+# Continue
 
 # construct the image generator for data augmentation
 aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
@@ -127,11 +124,12 @@ H = model.fit(
 	validation_data=(testX, testY),
 	steps_per_epoch=len(trainX) // BS,
 	epochs=EPOCHS, verbose=1)
+# ALTS https://pyimagesearch.com/2018/12/24/how-to-use-keras-fit-and-fit_generator-a-hands-on-tutorial/
+# AND ALSO https://pyimagesearch.com/2019/07/08/keras-imagedatagenerator-and-data-augmentation/ 
 
 # save the model to disk
 print("[INFO] serializing network...")
 model.save(args["model"], save_format="h5")
-
 # save the multi-label binarizer to disk
 print("[INFO] serializing label binarizer...")
 f = open(args["labelbin"], "wb")
@@ -151,3 +149,5 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="upper left")
 plt.savefig(args["plot"])
+
+# VIA https://pyimagesearch.com/2018/05/07/multi-label-classification-with-keras 
