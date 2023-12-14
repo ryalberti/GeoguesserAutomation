@@ -6,9 +6,9 @@ Runs on python 3.7.16
 1. This project requires two environments. One for trainging the license plate detection, and one for training and running the architecture detection. 
 ## Installation using Anaconda:
 ```
-Conda create -n myenv python=3.7 
+conda create -n myenv python=3.7 
 
-Conda activate myenv
+conda activate myenv
 
 conda install -c anaconda pip
 
@@ -20,9 +20,7 @@ pip uninstall keras-preprocessing
 
 pip install git+https://github.com/keras-team/keras-preprocessing.git
 
-Pip install tensorflow
-
-Pip install pillow
+pip install tensorflow
 
 pip install pillow
 
