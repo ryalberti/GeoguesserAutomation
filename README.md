@@ -7,6 +7,7 @@ Runs on python 3.7.16
 
 ```
 git clone git@github.com:ryalberti/GeoguesserAutomation.git
+```
 2. Prepare the license plate detector
 ```
 cd GeoguesserAutomation
