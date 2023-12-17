@@ -7,6 +7,9 @@ Runs on python 3.7.16
 
 ```
 git clone git@github.com:ryalberti/GeoguesserAutomation.git
+```
+2. Prepare the license plate detector
+```
 cd GeoguesserAutomation
 cd License_Plate_Detection
 conda create -n licenseenv python=3.11
@@ -25,11 +28,6 @@ python -m ipykernel install --name=licenseenv
 ```
 Now that the kernel is linked, download the ANPR OpenCV.ipynb file and open it within Jupyter Notebook. Make sure when you open the file, that the licenseenv kernel is selected. Then use Shift+Enter to go cell by cell until the end where the license plate detection is done.
 
-2. Train the license plate detector
-```
-cd GeoguesserAutomation
-cd License_Plate_Detection
-```
 3. The second is for training the architecture model.
 
 ```
@@ -43,17 +41,17 @@ pip install opencv-python
 pip install scikit-learn
 pip install tensorflow
 ```
-3. Train the architecture model.
+4. Train the architecture model.
 ```
 cd arch_classification
 python vgg_Train.py 
 ```
-4. Place your API key into the file. Paste in your key, save, quit.
+5. Place your API key into the file. Paste in your key, save, quit.
 ```
 notepad geoguesserautomation-5264cd87ce70.json
 ```
 
-5. Run the script
+6. Run the script
 ```
 python geoguess.py test_images/test1.png
 ```
